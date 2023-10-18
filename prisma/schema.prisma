@@ -1,0 +1,108 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model cart {
+  id          BigInt   @id @default(autoincrement())
+  title       String @db.VarChar(100)
+  sessionld   String? @db.VarChar(100)
+  token       String? @db.VarChar(100)
+  status      String? @db.VarChar(100)
+  firstName   String? @db.VarChar(100)
+  middleName  String? @db.VarChar(100)
+  lastName    String? @db.VarChar(100)
+  mobile      String? @db.VarChar(100)
+  email       String? @db.VarChar(100)
+  city        String?
+  country     String?
+  userld      BigInt
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+
+model category {
+  id         BigInt   @id @default(autoincrement())
+  title      String  @db.VarChar(100)
+  metaTitle  String? @db.VarChar(100)
+  slug       String  @db.VarChar(100)
+  content    String  @db.VarChar(100)
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+
+model order {
+  id           BigInt   @id @default(autoincrement())
+  title        String  @db.VarChar(100)
+  token        String?  @db.VarChar(100)
+  subTotal     Int
+  itemDiscount Int
+  tax          Int
+  total        Int
+  discount     Int
+  grandTotal   Int
+  firstName    String? @db.VarChar(100)
+  middleName   String? @db.VarChar(100)
+  lastName     String? @db.VarChar(100)
+  mobile       String? @db.VarChar(100)
+  email        String? @db.VarChar(100)
+  city         String? @db.VarChar(100)
+  country      String? @db.VarChar(100)
+  userld       BigInt
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+
+model user {
+  id            BigInt   @id @default(autoincrement())
+  firstName     String  @db.VarChar(100)
+  middleName    String? @db.VarChar(100)
+  lastName      String? @db.VarChar(100)
+  mobile        String?  @db.VarChar(100)
+  email         String  @db.VarChar(100)
+  password      String  @db.VarChar(100)
+  admin         Boolean
+  registeredAt  DateTime?
+  lastLogin     DateTime?
+  createAt      DateTime @default(now())
+  updateAt      DateTime @updatedAt
+}
+
+model product {
+  id          BigInt   @id @default(autoincrement())
+  firstName   String @db.VarChar(100)
+  metaTitle   String @db.VarChar(100)
+  slug        String  @db.VarChar(100)
+  summary     String?  @db.VarChar(100)
+  price       Int
+  discount    Int
+  userld      BigInt?
+  publishedAt DateTime?
+  startsAt    DateTime?
+  endsAt      DateTime?
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+
+model product_meta {
+  id          BigInt   @id @default(autoincrement())
+  key         String   @db.VarChar(100)
+  content     String?  @db.VarChar(100)
+  productld   BigInt
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+
+model product_review {
+  id          BigInt   @id @default(autoincrement())
+  title       String @db.VarChar(100)
+  rating      String @db.VarChar(100)
+  content     String @db.VarChar(100)
+  productld   BigInt
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
